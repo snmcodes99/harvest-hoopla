@@ -16,7 +16,7 @@ interface Produce {
   harvestDate: string;
   farmLocation: string;
   basePrice: number;
-  status: "In Farm" | "In Transit" | "Sold";
+  status: "In Farm" | "Assigned to Distributor" | "Delivered to Retailer" | "Sold";
   qrCode: string;
   certificate?: string;
 }
@@ -31,7 +31,7 @@ const FarmerDashboard = () => {
       harvestDate: "2024-01-15",
       farmLocation: "Green Valley Farm, CA",
       basePrice: 4.50,
-      status: "In Transit",
+      status: "Delivered to Retailer",
       qrCode: "QR_TOM_2024_001"
     },
     {
@@ -41,7 +41,7 @@ const FarmerDashboard = () => {
       harvestDate: "2024-01-18",
       farmLocation: "Green Valley Farm, CA",
       basePrice: 2.25,
-      status: "In Farm",
+      status: "Assigned to Distributor",
       qrCode: "QR_LET_2024_002"
     }
   ]);
@@ -110,7 +110,8 @@ const FarmerDashboard = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "In Farm": return "bg-farm-green text-farm-green-foreground";
-      case "In Transit": return "bg-sky-blue text-sky-blue-foreground";
+      case "Assigned to Distributor": return "bg-sky-blue text-sky-blue-foreground";
+      case "Delivered to Retailer": return "bg-secondary text-secondary-foreground";
       case "Sold": return "bg-primary text-primary-foreground";
       default: return "bg-muted text-muted-foreground";
     }
@@ -259,12 +260,26 @@ const FarmerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-muted-foreground text-sm">In Transit</p>
+                  <p className="text-muted-foreground text-sm">Assigned to Distributor</p>
                   <p className="text-2xl font-bold text-sky-blue">
-                    {produces.filter(p => p.status === "In Transit").length}
+                    {produces.filter(p => p.status === "Assigned to Distributor").length}
                   </p>
                 </div>
                 <Calendar className="h-8 w-8 text-sky-blue" />
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-muted-foreground text-sm">Delivered to Retailer</p>
+                  <p className="text-2xl font-bold text-secondary">
+                    {produces.filter(p => p.status === "Delivered to Retailer").length}
+                  </p>
+                </div>
+                <QrCode className="h-8 w-8 text-secondary" />
               </div>
             </CardContent>
           </Card>

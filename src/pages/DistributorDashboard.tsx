@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Truck, Scan, Package, MapPin, Clock, Thermometer, AlertTriangle } from "lucide-react";
+import { Truck, Scan, Package, MapPin, Clock, ArrowRight, Store, Thermometer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ProductTimeline from "@/components/ProductTimeline";
 
@@ -25,7 +25,8 @@ interface Product {
   batchId: string;
   farmer: string;
   currentLocation: string;
-  status: "Picked Up" | "In Transit" | "At Warehouse" | "Out for Delivery" | "Delivered";
+  status: "Picked Up" | "In Transit" | "Ready for Handover" | "Delivered to Retailer";
+  assignedRetailer?: string;
   timeline: LogisticsUpdate[];
   lastUpdate: string;
 }
@@ -39,24 +40,25 @@ const DistributorDashboard = () => {
       batchId: "TOM-2024-001",
       farmer: "Green Valley Farm",
       currentLocation: "Distribution Center, CA",
-      status: "At Warehouse",
+      status: "Ready for Handover",
+      assignedRetailer: "FreshMart Grocery",
       lastUpdate: "2 hours ago",
       timeline: [
         {
           id: "1",
           timestamp: "2024-01-15T08:00:00Z",
           location: "Green Valley Farm, CA",
-          status: "Picked Up",
+          status: "Picked Up from Farm",
           temperature: "4°C",
-          updatedBy: "Driver: John Smith"
+          updatedBy: "Distributor: FreshLogistics Co."
         },
         {
           id: "2", 
           timestamp: "2024-01-15T14:30:00Z",
           location: "Distribution Center, CA",
-          status: "At Warehouse",
+          status: "Ready for Handover",
           temperature: "3°C",
-          updatedBy: "Warehouse: Sarah Johnson"
+          updatedBy: "Distributor: FreshLogistics Co."
         }
       ]
     }
@@ -158,9 +160,8 @@ const DistributorDashboard = () => {
     switch (status) {
       case "Picked Up": return "bg-farm-green text-farm-green-foreground";
       case "In Transit": return "bg-sky-blue text-sky-blue-foreground";
-      case "At Warehouse": return "bg-earth-brown text-earth-brown-foreground";
-      case "Out for Delivery": return "bg-secondary text-secondary-foreground";
-      case "Delivered": return "bg-primary text-primary-foreground";
+      case "Ready for Handover": return "bg-earth-brown text-earth-brown-foreground";
+      case "Delivered to Retailer": return "bg-primary text-primary-foreground";
       default: return "bg-muted text-muted-foreground";
     }
   };
@@ -260,9 +261,8 @@ const DistributorDashboard = () => {
                 <option value="">Select Status</option>
                 <option value="Picked Up">Picked Up</option>
                 <option value="In Transit">In Transit</option>
-                <option value="At Warehouse">At Warehouse</option>
-                <option value="Out for Delivery">Out for Delivery</option>
-                <option value="Delivered">Delivered</option>
+                <option value="Ready for Handover">Ready for Handover</option>
+                <option value="Delivered to Retailer">Delivered to Retailer</option>
               </select>
             </div>
             
@@ -342,9 +342,9 @@ const DistributorDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-muted-foreground text-sm">At Warehouse</p>
+                  <p className="text-muted-foreground text-sm">Ready for Handover</p>
                   <p className="text-2xl font-bold text-earth-brown">
-                    {products.filter(p => p.status === "At Warehouse").length}
+                    {products.filter(p => p.status === "Ready for Handover").length}
                   </p>
                 </div>
                 <MapPin className="h-8 w-8 text-earth-brown" />
@@ -356,9 +356,9 @@ const DistributorDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-muted-foreground text-sm">Delivered</p>
+                  <p className="text-muted-foreground text-sm">Delivered to Retailer</p>
                   <p className="text-2xl font-bold text-primary">
-                    {products.filter(p => p.status === "Delivered").length}
+                    {products.filter(p => p.status === "Delivered to Retailer").length}
                   </p>
                 </div>
                 <Clock className="h-8 w-8 text-primary" />

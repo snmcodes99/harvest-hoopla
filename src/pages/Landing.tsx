@@ -47,7 +47,7 @@ const Landing = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
             {/* Farmer Dashboard */}
             <Card className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-farm-green group cursor-pointer"
                   onClick={() => navigate('/farmer')}>
@@ -77,16 +77,37 @@ const Landing = () => {
               </div>
               <h3 className="text-2xl font-bold mb-4 text-foreground">Distributor</h3>
               <p className="text-muted-foreground mb-6">
-                Scan QR codes, update logistics, and manage the supply chain
+                Scan QR codes, manage logistics, and coordinate with retailers
               </p>
               <ul className="text-sm text-muted-foreground space-y-2 mb-6">
                 <li>• Scan product QR codes</li>
                 <li>• Update logistics info</li>
-                <li>• Track product journey</li>
-                <li>• Manage inventory</li>
+                <li>• Assign to retailers</li>
+                <li>• Track shipments</li>
               </ul>
               <Button variant="outline" className="w-full group-hover:border-sky-blue group-hover:text-sky-blue">
                 Access Distributor Dashboard
+              </Button>
+            </Card>
+
+            {/* Retailer Dashboard */}
+            <Card className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-secondary group cursor-pointer"
+                  onClick={() => navigate('/retailer')}>
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                <ShoppingCart className="h-10 w-10 text-secondary" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-foreground">Retailer</h3>
+              <p className="text-muted-foreground mb-6">
+                Receive produce, manage inventory, and prepare for consumer sales
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-2 mb-6">
+                <li>• Receive from distributors</li>
+                <li>• Manage inventory</li>
+                <li>• Mark ready for sale</li>
+                <li>• Track sales</li>
+              </ul>
+              <Button variant="outline" className="w-full group-hover:border-secondary group-hover:text-secondary">
+                Access Retailer Dashboard
               </Button>
             </Card>
 
@@ -94,7 +115,7 @@ const Landing = () => {
             <Card className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-primary group cursor-pointer"
                   onClick={() => navigate('/consumer')}>
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <ShoppingCart className="h-10 w-10 text-primary" />
+                <QrCode className="h-10 w-10 text-primary" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-foreground">Consumer</h3>
               <p className="text-muted-foreground mb-6">
@@ -102,7 +123,7 @@ const Landing = () => {
               </p>
               <ul className="text-sm text-muted-foreground space-y-2 mb-6">
                 <li>• Scan product QR codes</li>
-                <li>• View product journey</li>
+                <li>• View complete journey</li>
                 <li>• Check certificates</li>
                 <li>• Verify authenticity</li>
               </ul>

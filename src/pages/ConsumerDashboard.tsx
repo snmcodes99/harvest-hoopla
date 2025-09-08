@@ -46,7 +46,7 @@ const ConsumerDashboard = () => {
   const [scannedProduct, setScannedProduct] = useState<ProductInfo | null>(null);
 
   // Mock product data that would come from scanning
-  const mockProductData: ProductInfo = {
+    const mockProductData: ProductInfo = {
     id: "1",
     name: "Organic Tomatoes",
     batchId: "TOM-2024-001",
@@ -79,12 +79,20 @@ const ConsumerDashboard = () => {
         id: "3",
         timestamp: "2024-01-16T09:00:00Z",
         location: "Distribution Center, CA",
-        status: "In Transit",
+        status: "Picked Up by Distributor",
         temperature: "3°C",
-        updatedBy: "Driver: John Smith"
+        updatedBy: "Distributor: FreshLogistics Co."
       },
       {
         id: "4",
+        timestamp: "2024-01-17T10:15:00Z",
+        location: "Retailer Warehouse, SF",
+        status: "Delivered to Retailer",
+        temperature: "4°C",
+        updatedBy: "Retailer: FreshMart Grocery"
+      },
+      {
+        id: "5",
         timestamp: "2024-01-17T15:20:00Z",
         location: "FreshMart Grocery, SF",
         status: "Available for Purchase",
